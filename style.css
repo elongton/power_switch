@@ -1,0 +1,31 @@
+.dashed{
+  border: 1px dashed black;
+}
+
+
+.glow {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: glow;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-iteration-count: infinite;
+    animation-duration: 1s;
+    animation-name: glow;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+
+}
+
+
+@-webkit-keyframes glow {
+    from { text-shadow: 0 0 0px red; }
+    to { text-shadow: 0 0 50px red; }
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+canvas {
+    position: absolute;
+}
