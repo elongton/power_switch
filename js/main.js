@@ -1,11 +1,11 @@
-// $(document).ready(function(){
-//
-//   $( "#switch_div" ).click(function() {
-//     $("#switch_off").css('display', 'none');
-//     $("#switch_on").css('display', 'inline');
-//   });
-//
-// });
+$(document).ready(function(){
+
+  $( "#switch_div" ).click(function() {
+    $("#switch_off").css('display', 'none');
+    $("#switch_on").css('display', 'inline');
+  });
+
+});
 
 
 // forked from akm2's "Lightning Points (Lightning 2)" http://jsdo.it/akm2/amk0
