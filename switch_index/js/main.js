@@ -1,28 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-//   $( "#switch_div" ).click(function() {
-//     $("#switch_off").css('display', 'none')
-//     $("#switch_on").css('display', 'inline');
-//     setTimeout(()=>{
-//         window.location.replace("http://commercialone.maxlongton.com");
-//     }, 1000)
-//   });
-  $( "#switch_div" ).click(function() {
-    $("#switch_off").toggleClass("transparent")
-    // setTimeout(()=>{
-    //     window.location.replace("http://commercialone.maxlongton.com");
-    // }, 1000)
-  });
-
-
-//   $( "#switch_div" ).click(function() {
-//     $("#switch_off").css('display', 'none')
-
-//     $("#switch_on").css('display', 'inline');
-//     setTimeout(()=>{
-//         window.location.replace("http://commercialone.maxlongton.com");
-//     }, 1000)
-//   });
+    $("#switch_div").click(function () {
+        $("#switch_off").toggleClass("transparent")
+        setTimeout(() => {
+            window.location.replace("/");
+        }, 1000)
+    });
 
 });
 
@@ -58,7 +41,7 @@ var lightningLine;
 
 // alias
 var random = Math.random;
-var floor  = Math.floor;
+var floor = Math.floor;
 
 function init() {
     document.body.style.backgroundColor = BACKGROUND_COLOR;
@@ -73,11 +56,11 @@ function init() {
         dragPoints.push(new DragPoint(canvas.width * random(), canvas.height * random()));
     }
 
-    var baseNoiseOpts      = { base: 100000, amplitude: 0.6, speed: 0.02 };
+    var baseNoiseOpts = { base: 100000, amplitude: 0.6, speed: 0.02 };
     var lightningNoiseOpts = { base: 90, amplitude: 0.2, speed: 0.05 };
-    var childNoiseOpts     = { base: 60, amplitude: 0.8, speed: 0.08 };
+    var childNoiseOpts = { base: 60, amplitude: 0.8, speed: 0.08 };
 
-    baseLine      = new NoiseLine(8,  baseNoiseOpts);
+    baseLine = new NoiseLine(8, baseNoiseOpts);
     lightningLine = new NoiseLine(16, lightningNoiseOpts);
     for (i = 0; i < CHILD_NUM; i++) {
         lightningLine.createChild(childNoiseOpts);
@@ -198,7 +181,7 @@ function loop() {
     drawLightningLine(lightningLine, 0.75, 1, 1, 5);
     drawLightningCap(lightningLine);
 
-    lightningLine.eachChild(function(child, i) {
+    lightningLine.eachChild(function (child, i) {
         drawLightningLine(child, 0, 1, 0, 4);
         drawLightningBlur(child, 50, 30);
     });
@@ -220,8 +203,8 @@ function sortPoints(p1, p2) {
 function drawLightningLine(line, maxAlpha, minAlpha, maxLineW, minLineW) {
     context.beginPath();
     context.strokeStyle = Color.setAlphaToString(randomRange(minAlpha, maxAlpha));
-    context.lineWidth   = randomRange(minLineW, maxLineW);
-    line.eachPoints(function(p, i) {
+    context.lineWidth = randomRange(minLineW, maxLineW);
+    line.eachPoints(function (p, i) {
         context[i === 0 ? 'moveTo' : 'lineTo'](p.x, p.y);
     });
     context.stroke();
@@ -234,7 +217,7 @@ function drawLightningBlur(line, blur, maxSize) {
     context.shadowBlur = blur;
     context.shadowColor = Color.setAlphaToString();
     context.beginPath();
-    line.eachPoints(function(p, i, len) {
+    line.eachPoints(function (p, i, len) {
         dist = len > 1 ? p.distance(this[i === len - 1 ? i - 1 : i + 1]) : 0;
         if (dist > maxSize) dist = maxSize;
         context.moveTo(p.x + dist, p.y);
@@ -268,7 +251,7 @@ function randomRange(min, max) {
 }
 
 
-(function(window) {
+(function (window) {
     //PerlinNoise.useClassic = true;
     var perlinNoise = new PerlinNoise();
     perlinNoise.octaves(3);
@@ -295,27 +278,27 @@ function randomRange(min, max) {
     }
 
     NoiseLine.prototype = {
-        createChild: function(noiseOptions) {
+        createChild: function (noiseOptions) {
             var child = new NoiseLineChild(this, noiseOptions || this.noiseOptions);
             this.children.push(child);
             return child;
         },
 
-        eachChild: function(callback) {
+        eachChild: function (callback) {
             var children = this.children;
             for (var i = 0, len = children.length; i < len; i++) {
                 callback.call(children, children[i], i, len);
             }
         },
 
-        eachPoints: function(callback) {
+        eachPoints: function (callback) {
             var points = this.points;
             for (var i = 0, len = points.length; i < len; i++) {
                 callback.call(points, points[i], i, len);
             }
         },
 
-        update: function(controls) {
+        update: function (controls) {
             var i, len;
 
             // 振り幅の係数として使用するため制御点を全て直線で結んだ距離を取得する
@@ -331,8 +314,8 @@ function randomRange(min, max) {
 
             // *** Debug
             if (Debug.enabled && this.debug) {
-                this.eachPoints(function(p, i) {
-                    Debug.addCommand(function() { Debug.point(p.x, p.y, 3, 'blue'); });
+                this.eachPoints(function (p, i) {
+                    Debug.addCommand(function () { Debug.point(p.x, p.y, 3, 'blue'); });
                 });
             }
             // *********
@@ -342,8 +325,8 @@ function randomRange(min, max) {
 
             // *** Debug
             if (Debug.enabled && this.debug) {
-                this.eachPoints(function(p, i) {
-                    Debug.addCommand(function() { Debug.point(p.x, p.y, 3, 'red'); });
+                this.eachPoints(function (p, i) {
+                    Debug.addCommand(function () { Debug.point(p.x, p.y, 3, 'red'); });
                 });
             }
             // *********
@@ -355,7 +338,7 @@ function randomRange(min, max) {
             }
         },
 
-        noise: function(bases, range) {
+        noise: function (bases, range) {
             var pointsOld = this.points;
             var points = this.points = [];
 
@@ -392,8 +375,8 @@ function randomRange(min, max) {
 
                 // *** Debug
                 if (Debug.enabled && this.debug) {
-                    Debug.addCommand((function(p, angle) {
-                        return function() {
+                    Debug.addCommand((function (p, angle) {
+                        return function () {
                             context.save();
                             context.translate(p.x, p.y);
                             context.rotate(angle);
@@ -428,7 +411,7 @@ function randomRange(min, max) {
         createChild: undefined,
         eachChild: undefined,
 
-        update: function() {
+        update: function () {
             var parent = this.parent;
             var plen = parent.points.length;
 
@@ -460,11 +443,11 @@ function randomRange(min, max) {
 
             // *** Debug
             if (Debug.enabled) {
-                (function() {
+                (function () {
                     for (var i = 0, len = controls.length - 1, p, n; i < len; i++) {
                         p = controls[i];
-                        Debug.addCommand((function(p) {
-                            return function() { Debug.point(p.x, p.y, 3, 'yellow'); };
+                        Debug.addCommand((function (p) {
+                            return function () { Debug.point(p.x, p.y, 3, 'yellow'); };
                         })(p));
                     }
                 })();
@@ -476,12 +459,12 @@ function randomRange(min, max) {
 
             // *** Debug
             if (Debug.enabled) {
-                (function() {
+                (function () {
                     for (var i = 0, len = base.length - 1, p, n; i < len; i++) {
                         p = base[i];
                         n = base[i + 50];
-                        Debug.addCommand((function(p, n) {
-                            return function() { Debug.line(p.x, p.y, n.x, n.y, 'yellow', 1); };
+                        Debug.addCommand((function (p, n) {
+                            return function () { Debug.line(p.x, p.y, n.x, n.y, 'yellow', 1); };
                         })(p, n));
                     }
                 })();
@@ -593,11 +576,11 @@ function DragPoint(x, y) {
 }
 
 DragPoint.prototype = extend({}, Point.prototype, {
-    hitTest: function(mouse) {
+    hitTest: function (mouse) {
         return this.distance(mouse) < this.radius;
     },
 
-    dragStart: function(mouse) {
+    dragStart: function (mouse) {
         if (this.hitTest(mouse)) {
             this._mouse = mouse;
             this._mouseDist = this.subtract(this._mouse);
@@ -606,7 +589,7 @@ DragPoint.prototype = extend({}, Point.prototype, {
         return this.dragging;
     },
 
-    dragEnd: function() {
+    dragEnd: function () {
         if (this.dragging && this._latestMouse) {
             this._v.set(this._mouse.subtract(this._latestMouse));
         }
@@ -614,12 +597,12 @@ DragPoint.prototype = extend({}, Point.prototype, {
         this._mouse = this._mouseDist = null;
     },
 
-    kill: function() {
+    kill: function () {
         this.dying = true;
         this.radius = 0;
     },
 
-    update: function(mouse) {
+    update: function (mouse) {
         var v = this._v;
 
         if (this._mouse) {
@@ -670,7 +653,7 @@ DragPoint.prototype = extend({}, Point.prototype, {
         this._currentRadius *= randomRange(0.9, 1);
     },
 
-    draw: function(ctx) {
+    draw: function (ctx) {
         var radius = this._currentRadius;
         var gradient = ctx.createRadialGradient(this.x, this.y, radius / 3, this.x, this.y, radius);
         gradient.addColorStop(0, Color.setAlphaToString(this._currentAlpha));
@@ -687,12 +670,12 @@ DragPoint.prototype = extend({}, Point.prototype, {
 /**
  * Color
  */
-var Color = new function() {
+var Color = new function () {
     this.h = H;
     this.s = S;
     this.l = L_MAX;
 
-    this.setAlphaToString = function(alpha) {
+    this.setAlphaToString = function (alpha) {
         if (typeof alpha === 'undefined' || alpha === null) {
             return 'hsl(' + this.h + ', ' + this.s + '%, ' + this.l + '%)';
         }
@@ -703,7 +686,7 @@ var Color = new function() {
 
 // Init
 
-window.onload = function() {
+window.onload = function () {
     init();
 };
 
@@ -718,11 +701,11 @@ var Debug = {
     enabled: false,
     _commands: [],
 
-    addCommand: function(fn) {
+    addCommand: function (fn) {
         if (this.enabled) this._commands.push(fn);
     },
 
-    exec: function() {
+    exec: function () {
         if (this.enabled) {
             var commands = this._commands;
             for (var i = 0, len = commands.length; i < len; i++) {
@@ -732,7 +715,7 @@ var Debug = {
         }
     },
 
-    line: function(x1, y1, x2, y2, color, lineWidth) {
+    line: function (x1, y1, x2, y2, color, lineWidth) {
         if (this.enabled) {
             context.save();
             context.globalCompositeOperation = 'source-over';
@@ -746,7 +729,7 @@ var Debug = {
         }
     },
 
-    point: function(x, y, radius, color) {
+    point: function (x, y, radius, color) {
         if (this.enabled) {
             context.save();
             context.globalCompositeOperation = 'source-over';
