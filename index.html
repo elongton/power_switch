@@ -10,20 +10,14 @@
   <canvas id='c' style="position: absolute;">
   </canvas>
   <body>
-    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; flex-direction: column;" class="">
-      <div class="glow" style="text-align: center; font-size: 3vw; color: white; font-family: Electrolize; font-weight: bold; margin-bottom: 20px;">Turn on the power to enter!</div>
-      <div style="align-self:center; width: 30%;">
-        <div id="switch_div">
-          <img src="push_button_off.svg" id="switch_off" alt="" style="display: inline; height: auto; width: 100%;">
-          <img src="push_button_on.svg" id="switch_on" alt="" style="display: none; height: auto; width: 100%;">
-        </div>
+    <section class="content-wrapper">
+      <div class="glow turn-power-on-text">Turn on the power to enter!</div>
+      <div id="switch_div">
+        <img src="push_button_off.svg" id="switch_off" class="power_button">
+        <img src="push_button_on.svg" id="switch_on" class="power_button">
       </div>
-
-      <!-- <a href="http://eatcode.net" style="align-self: center; width: 40%;">
-
-      </a> -->
     </div>
-  </body>
+  </section>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>

@@ -1,9 +1,28 @@
 $(document).ready(function(){
 
+//   $( "#switch_div" ).click(function() {
+//     $("#switch_off").css('display', 'none')
+//     $("#switch_on").css('display', 'inline');
+//     setTimeout(()=>{
+//         window.location.replace("http://commercialone.maxlongton.com");
+//     }, 1000)
+//   });
   $( "#switch_div" ).click(function() {
-    $("#switch_off").css('display', 'none');
-    $("#switch_on").css('display', 'inline');
+    $("#switch_off").toggleClass("transparent")
+    // setTimeout(()=>{
+    //     window.location.replace("http://commercialone.maxlongton.com");
+    // }, 1000)
   });
+
+
+//   $( "#switch_div" ).click(function() {
+//     $("#switch_off").css('display', 'none')
+
+//     $("#switch_on").css('display', 'inline');
+//     setTimeout(()=>{
+//         window.location.replace("http://commercialone.maxlongton.com");
+//     }, 1000)
+//   });
 
 });
 
@@ -21,7 +40,11 @@ var CHILD_NUM = 2;
 var BACKGROUND_COLOR = 'rgba(0, 15, 20, 0.8)';
 
 // Color
-var H = 195;
+// var H = 195;
+// var S = 100;
+// var L_MAX = 85;
+// var L_MIN = 45;
+var H = 20;
 var S = 100;
 var L_MAX = 85;
 var L_MIN = 45;
